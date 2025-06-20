@@ -78,9 +78,10 @@
         </div>
 
         <div class="instalaciones">
-            <div class="instalaciones__info"></div>
+            <div class="instalaciones__info">
                 <h2 class="instalaciones__titulo">Instalaciones</h2>
-                <h3>Nos encontramos en Juan Pablo II 670, Centenario Neuquén</h3>
+                <div class="linea"></div>
+                <h3 class="instalaciones__subtitulo">Nos encontramos en Juan Pablo II 670, Centenario Neuquén</h3>
                 <p>AULAS: cada salón está climatizado, con buena iluminación natural y artificial, equipados con pizarras, proyectores y todo lo necesario para una enseñanza cómoda y eficaz.</p>
                 <br>
                 <p>RECEPCION: contamos con un espacio cómodo para recibir a alumnos y familias, con un trato cercano y profesional. </p>
@@ -88,27 +89,60 @@
                 <p>BIBLIOTECA:  los estudiantes tienen acceso a una biblioteca colorida y organizada, ideal para reforzar el estudio con material de lectura variado. </p>
             </div>
             <div class="instalaciones__imagen">
-                <img src="imagenes/frente.png" alt="instituto" class="instalaciones__img">
             </div>
         </div>
 
-        <div class="carrusel">
-            <button class="carrusel__anterior">&#10094;</button>
-            <div class="carrusel__items">
-                <div class="carrusel-item"> <img src="imagenes/instalaciones.png"></div>
-                <div class="carrusel-item"><img src="imagenes/instalaciones1.png"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
-                <div class="carrusel-item"></div>
+        <div class="carrusel-instalaciones">
+            <button class="carrusel-arrow carrusel-prev-instalaciones">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="carrusel-instalaciones__track">
+                <div class="carrusel-instalaciones__track-inner">
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones.png" alt="Instalaciones">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones1.png" alt="Instalaciones 1">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones2.png" alt="Instalaciones 2">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones3.png" alt="Instalaciones 3">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones4.png" alt="Instalaciones 4">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones5.png" alt="Instalaciones 5">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones6.png" alt="Instalaciones 6">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones7.png" alt="Instalaciones 7">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones8.png" alt="Instalaciones 8">
+                    </div>
+                    <div class="carrusel-instalaciones__slide">
+                        <img src="imagenes/instalaciones9.png" alt="Instalaciones 9">
+                    </div>
+                </div>
+            </div>
+            <button class="carrusel-arrow carrusel-next-instalaciones">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="carrusel-instalaciones-dots">
+                <!-- Los dots se generarán dinámicamente con JavaScript -->
             </div>
         </div>
 
-        <h3>Online Learning</h3>
+        <h3 class="online__titulo">Online Learning</h3>
         <div class="clases__online">
             <img src="imagenes/classroom.jpg" alt="computadora" class="online__img">
             <div class="online__info">

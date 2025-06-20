@@ -93,3 +93,97 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCarousel();
     });
 });
+
+// Carrusel de Instalaciones
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carrusel-instalaciones__track-inner');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carrusel-next-instalaciones');
+    const prevButton = document.querySelector('.carrusel-prev-instalaciones');
+    const dotsContainer = document.querySelector('.carrusel-instalaciones-dots');
+
+    // Crear los dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('carrusel-instalaciones-dot');
+        if (index === 0) dot.classList.add('active');
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsContainer.children);
+
+    // Configurar el ancho de los slides
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    
+    // Posicionar los slides uno al lado del otro
+    const setSlidePosition = (slide, index) => {
+        slide.style.left = slideWidth * index + 'px';
+    };
+    slides.forEach(setSlidePosition);
+
+    const moveToSlide = (track, currentSlide, targetSlide) => {
+        track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
+        currentSlide.classList.remove('active');
+        targetSlide.classList.add('active');
+
+        // Actualizar estado de los botones
+        const currentIndex = slides.findIndex(slide => slide === targetSlide);
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === slides.length - 1;
+
+        // Actualizar estilos de los botones
+        prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+        nextButton.style.opacity = currentIndex === slides.length - 1 ? '0.5' : '1';
+        prevButton.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+        nextButton.style.cursor = currentIndex === slides.length - 1 ? 'not-allowed' : 'pointer';
+    };
+
+    const updateDots = (currentDot, targetDot) => {
+        currentDot.classList.remove('active');
+        targetDot.classList.add('active');
+    };
+
+    // Click en el botón siguiente
+    nextButton.addEventListener('click', () => {
+        const currentSlide = track.querySelector('.active');
+        const nextSlide = currentSlide.nextElementSibling;
+        if (nextSlide) {
+            const currentDot = dotsContainer.querySelector('.active');
+            const nextDot = currentDot.nextElementSibling;
+            moveToSlide(track, currentSlide, nextSlide);
+            updateDots(currentDot, nextDot);
+        }
+    });
+
+    // Click en el botón anterior
+    prevButton.addEventListener('click', () => {
+        const currentSlide = track.querySelector('.active');
+        const prevSlide = currentSlide.previousElementSibling;
+        if (prevSlide) {
+            const currentDot = dotsContainer.querySelector('.active');
+            const prevDot = currentDot.previousElementSibling;
+            moveToSlide(track, currentSlide, prevSlide);
+            updateDots(currentDot, prevDot);
+        }
+    });
+
+    // Click en los dots
+    dotsContainer.addEventListener('click', e => {
+        const targetDot = e.target.closest('button');
+        if (!targetDot) return;
+
+        const currentSlide = track.querySelector('.active');
+        const currentDot = dotsContainer.querySelector('.active');
+        const targetIndex = dots.findIndex(dot => dot === targetDot);
+        const targetSlide = slides[targetIndex];
+
+        moveToSlide(track, currentSlide, targetSlide);
+        updateDots(currentDot, targetDot);
+    });
+
+    // Activar el primer slide y configurar estado inicial de los botones
+    slides[0].classList.add('active');
+    prevButton.disabled = true;
+    prevButton.style.opacity = '0.5';
+    prevButton.style.cursor = 'not-allowed';
+});
