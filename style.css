@@ -10,7 +10,6 @@ a {
     cursor: pointer;
 }
 
-
 .nav {
     background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(imagenes/FONDO_1200x600.png);
     background-size: cover;
@@ -196,6 +195,10 @@ a {
     z-index: 1;
 }
 
+.nosotros__carrusel-slide.no-transition {
+    transition: none !important;
+}
+
 .slide-icon {
     width: 30%;
     height: auto;
@@ -301,7 +304,7 @@ a {
 
 .instalaciones {
     background-color: #ddd;
-    margin: 7rem 5rem;
+    margin: 7rem 10rem;
     margin-bottom: 0;
     padding: 2rem;
     display: flex;
@@ -412,28 +415,7 @@ a {
     stroke: white;
 }
 
-.carrusel-instalaciones-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
 
-.carrusel-instalaciones-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #666;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.carrusel-instalaciones-dot.active {
-    background-color: #ff0000;
-    transform: scale(1.2);
-}
 
 @media (hover: hover) {
     .carrusel-prev-instalaciones:hover svg,
@@ -445,6 +427,15 @@ a {
 @media (max-width: 1200px) {
     .carrusel-instalaciones__slide {
         flex: 0 0 calc((100% - 0.6rem) / 4);
+    }
+
+    .online__img {
+        display: none;
+    }
+
+    .online__info {
+        max-width: 100%;
+        margin-left: 0;
     }
 }
 
@@ -477,25 +468,106 @@ a {
 
 .clases__online {
     display: flex;
-    padding: 3rem 18rem;
+    padding: 3rem 0;
+    margin: 0 15rem;
     height: 36rem;
-    margin-bottom: 5rem;
+    margin-bottom: 14rem;
     justify-content: space-between;
 }
 
 .online__img {
-    width: 23rem;
-    height: 35rem;
+    max-width: 50%;
+    height: 90%;
+    border-radius: 6px;
 }
 
 .online__info {
     margin-left: 4rem;
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.online__info-img {
+    border-radius: 6px;
+}
+
+.online__vermas {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+    background-color: #ff0000;
+    margin-left: auto;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #eee;
+    border-radius: 4px;
 }
 
 .online__tick {
     color: #ff0000;
 }
 
-.online__vermas {
-    margin-top: 0;
+@media (max-width: 1600px) {
+    .online__img {
+        max-height: 70%;
+        max-width: 25%;
+    }
+
+    .clases__online {
+        margin: 0 9rem;
+        margin-bottom: 14rem;
+    }
+}
+
+.footer {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(imagenes/footer.png);
+    background-size: cover;
+    height: 20rem;
+    position: relative;
+}
+
+.footer__icons {
+    position: absolute;
+    margin: 10rem 6rem;
+}
+
+.footer__icon {
+    margin-right: 0.5rem;
+}
+
+.footer__sections {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color:#eee;
+}
+
+.footer__section {
+    margin-right: 3rem;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer__title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer__text {
+    display: block;
+    margin-top: 0; 
+    margin-bottom: 0.5rem;
+}
+
+.footer__bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    color: #eee;
 }

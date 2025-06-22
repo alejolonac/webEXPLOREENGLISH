@@ -4,24 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevButton = document.querySelector('.carrusel-prev');
     const nextButton = document.querySelector('.carrusel-next');
     
-    // Duplicar los primeros slides al final y los últimos al inicio
-    const firstSlides = Array.from(slides).slice(0, 3);
-    const lastSlides = Array.from(slides).slice(-3);
+    // Duplicar los slides necesarios para el carrusel infinito
+    const slidesToClone = 3;
+    const allSlides = Array.from(slides);
     
-    // Agregar los últimos slides al inicio
-    lastSlides.forEach(slide => {
-        const clone = slide.cloneNode(true);
+    // Agregar slides al inicio
+    for (let i = allSlides.length - 1; i >= allSlides.length - slidesToClone; i--) {
+        const clone = allSlides[i].cloneNode(true);
         trackInner.insertBefore(clone, trackInner.firstChild);
-    });
+    }
     
-    // Agregar los primeros slides al final
-    firstSlides.forEach(slide => {
-        const clone = slide.cloneNode(true);
+    // Agregar slides al final
+    for (let i = 0; i < slidesToClone; i++) {
+        const clone = allSlides[i].cloneNode(true);
         trackInner.appendChild(clone);
-    });
+    }
     
-    let currentIndex = 3; // Comenzamos en el primer slide real (después de los clones)
-    const totalSlides = slides.length;
+    let currentIndex = slidesToClone; // Comenzamos en el primer slide real
+    const totalSlides = allSlides.length;
     
     function getSlideWidth() {
         const slide = slides[0];
@@ -63,12 +63,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function resetPosition() {
-        if (currentIndex >= totalSlides + 3) {
-            currentIndex = 3;
+        if (currentIndex >= totalSlides + slidesToClone) {
+            // Añadir clase no-transition a todos los slides
+            trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                slide.classList.add('no-transition');
+            });
+            
+            currentIndex = slidesToClone;
             updateCarousel(true);
-        } else if (currentIndex < 3) {
-            currentIndex = totalSlides + 2;
+            
+            // Forzar reflow
+            trackInner.offsetHeight;
+            
+            // Remover clase no-transition después de un momento
+            setTimeout(() => {
+                trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                    slide.classList.remove('no-transition');
+                });
+            }, 50);
+        } else if (currentIndex < slidesToClone) {
+            // Añadir clase no-transition a todos los slides
+            trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                slide.classList.add('no-transition');
+            });
+            
+            currentIndex = totalSlides + (slidesToClone - 1);
             updateCarousel(true);
+            
+            // Forzar reflow
+            trackInner.offsetHeight;
+            
+            // Remover clase no-transition después de un momento
+            setTimeout(() => {
+                trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                    slide.classList.remove('no-transition');
+                });
+            }, 50);
         }
     }
     
@@ -100,18 +130,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const slides = Array.from(track.children);
     const nextButton = document.querySelector('.carrusel-next-instalaciones');
     const prevButton = document.querySelector('.carrusel-prev-instalaciones');
-    const dotsContainer = document.querySelector('.carrusel-instalaciones-dots');
 
-    // Crear los dots
-    slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.classList.add('carrusel-instalaciones-dot');
-        if (index === 0) dot.classList.add('active');
-        dotsContainer.appendChild(dot);
-    });
+    // Clonar slides para el carrusel infinito
+    const slidesToClone = 6; // Número de slides visibles
+    
+    // Clonar slides al final
+    for (let i = 0; i < slidesToClone; i++) {
+        const clone = slides[i].cloneNode(true);
+        track.appendChild(clone);
+    }
+    
+    // Clonar slides al inicio
+    for (let i = slides.length - 1; i >= slides.length - slidesToClone; i--) {
+        const clone = slides[i].cloneNode(true);
+        track.insertBefore(clone, track.firstChild);
+    }
 
-    const dots = Array.from(dotsContainer.children);
-
+    const allSlides = Array.from(track.children);
+    
     // Configurar el ancho de los slides
     const slideWidth = slides[0].getBoundingClientRect().width;
     
@@ -119,71 +155,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const setSlidePosition = (slide, index) => {
         slide.style.left = slideWidth * index + 'px';
     };
-    slides.forEach(setSlidePosition);
+    allSlides.forEach(setSlidePosition);
 
-    const moveToSlide = (track, currentSlide, targetSlide) => {
-        track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
-        currentSlide.classList.remove('active');
-        targetSlide.classList.add('active');
+    // Posicionar el carrusel en el primer slide real
+    let currentIndex = slidesToClone;
+    track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
 
-        // Actualizar estado de los botones
-        const currentIndex = slides.findIndex(slide => slide === targetSlide);
-        prevButton.disabled = currentIndex === 0;
-        nextButton.disabled = currentIndex === slides.length - 1;
+    const moveToSlide = (direction) => {
+        track.style.transition = 'transform 0.5s ease-in-out';
+        currentIndex += direction;
+        track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
 
-        // Actualizar estilos de los botones
-        prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
-        nextButton.style.opacity = currentIndex === slides.length - 1 ? '0.5' : '1';
-        prevButton.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
-        nextButton.style.cursor = currentIndex === slides.length - 1 ? 'not-allowed' : 'pointer';
+        // Remover clase active del slide actual
+        const currentActive = track.querySelector('.active');
+        if (currentActive) currentActive.classList.remove('active');
+        
+        // Añadir clase active al nuevo slide
+        allSlides[currentIndex].classList.add('active');
     };
 
-    const updateDots = (currentDot, targetDot) => {
-        currentDot.classList.remove('active');
-        targetDot.classList.add('active');
+    const resetPosition = () => {
+        if (currentIndex >= allSlides.length - slidesToClone) {
+            // Si llegamos al final, saltar al inicio
+            track.style.transition = 'none';
+            currentIndex = slidesToClone;
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        } else if (currentIndex < slidesToClone) {
+            // Si llegamos al inicio, saltar al final
+            track.style.transition = 'none';
+            currentIndex = allSlides.length - slidesToClone * 2;
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        }
     };
 
     // Click en el botón siguiente
     nextButton.addEventListener('click', () => {
-        const currentSlide = track.querySelector('.active');
-        const nextSlide = currentSlide.nextElementSibling;
-        if (nextSlide) {
-            const currentDot = dotsContainer.querySelector('.active');
-            const nextDot = currentDot.nextElementSibling;
-            moveToSlide(track, currentSlide, nextSlide);
-            updateDots(currentDot, nextDot);
-        }
+        moveToSlide(1);
     });
 
     // Click en el botón anterior
     prevButton.addEventListener('click', () => {
-        const currentSlide = track.querySelector('.active');
-        const prevSlide = currentSlide.previousElementSibling;
-        if (prevSlide) {
-            const currentDot = dotsContainer.querySelector('.active');
-            const prevDot = currentDot.previousElementSibling;
-            moveToSlide(track, currentSlide, prevSlide);
-            updateDots(currentDot, prevDot);
-        }
+        moveToSlide(-1);
     });
 
-    // Click en los dots
-    dotsContainer.addEventListener('click', e => {
-        const targetDot = e.target.closest('button');
-        if (!targetDot) return;
+    // Manejar el reset de posición después de la transición
+    track.addEventListener('transitionend', resetPosition);
 
-        const currentSlide = track.querySelector('.active');
-        const currentDot = dotsContainer.querySelector('.active');
-        const targetIndex = dots.findIndex(dot => dot === targetDot);
-        const targetSlide = slides[targetIndex];
-
-        moveToSlide(track, currentSlide, targetSlide);
-        updateDots(currentDot, targetDot);
-    });
-
-    // Activar el primer slide y configurar estado inicial de los botones
-    slides[0].classList.add('active');
-    prevButton.disabled = true;
-    prevButton.style.opacity = '0.5';
-    prevButton.style.cursor = 'not-allowed';
+    // Activar el primer slide
+    allSlides[currentIndex].classList.add('active');
 });
