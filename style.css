@@ -10,14 +10,52 @@ a {
     cursor: pointer;
 }
 
-.nav {
+.header {
+    position: relative;
+    height: 50vw;
+    margin-bottom: -100px;
+}
+
+.header__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(imagenes/FONDO_1200x600.png);
     background-size: cover;
+    background-attachment: fixed;
+    z-index: 1;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
     justify-content: space-between;
-    height: 50vw;
     display: flex;
-    position: relative;
-    margin-bottom: -100px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-scrolled {
+    background-color: #eee;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-scrolled .nav__link {
+    color: #2e2e2e; 
+}
+
+.nav-scrolled .nav__link::after {
+    background-color: #1e1e1e; 
+}
+
+.nav-scrolled .nav__link-activo {
+    color: #000000; 
+    text-decoration: underline #000000 1px solid; 
 }
 
 .nav__list {
@@ -59,9 +97,9 @@ a {
 }
 
 .nav__logo-img {
-    margin-top: 5px;
+    margin-top: 1px;
     margin-left: 20px;
-    height: 6.5rem;
+    height: 5rem;
 }
 
 .fondo__titulo {
@@ -521,7 +559,7 @@ a {
 }
 
 .footer {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(imagenes/footer.png);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(imagenes/footer.png);
     background-size: cover;
     height: 20rem;
     position: relative;

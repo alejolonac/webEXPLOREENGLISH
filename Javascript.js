@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevButton = document.querySelector('.carrusel-prev');
     const nextButton = document.querySelector('.carrusel-next');
     
+    let isButtonEnabled = true;
+    const buttonCooldown = 500; // medio segundo de espera entre clicks
+    
     // Duplicar los slides necesarios para el carrusel infinito
     const slidesToClone = 3;
     const allSlides = Array.from(slides);
@@ -114,13 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => updateCarousel(true));
     
     prevButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
         currentIndex--;
         updateCarousel();
+        
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
     });
     
     nextButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
         currentIndex++;
         updateCarousel();
+        
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
     });
 });
 
@@ -130,6 +147,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const slides = Array.from(track.children);
     const nextButton = document.querySelector('.carrusel-next-instalaciones');
     const prevButton = document.querySelector('.carrusel-prev-instalaciones');
+
+    let isButtonEnabled = true;
+    const buttonCooldown = 500; // medio segundo de espera entre clicks
 
     // Clonar slides para el carrusel infinito
     const slidesToClone = 6; // Número de slides visibles
@@ -190,12 +210,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Click en el botón siguiente
     nextButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
         moveToSlide(1);
+        
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
     });
 
     // Click en el botón anterior
     prevButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
         moveToSlide(-1);
+        
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
     });
 
     // Manejar el reset de posición después de la transición
@@ -203,4 +237,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Activar el primer slide
     allSlides[currentIndex].classList.add('active');
+});
+
+
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.nav');
+    if (window.scrollY > 80) { 
+        nav.classList.add('nav-scrolled');
+    } else {
+        nav.classList.remove('nav-scrolled');
+    }
 });
