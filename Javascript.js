@@ -139,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
             isButtonEnabled = true;
         }, buttonCooldown);
     });
+
+
 });
 
 // Carrusel de Instalaciones
