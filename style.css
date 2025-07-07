@@ -717,7 +717,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 4rem;
     box-sizing: border-box;
     overflow-x: hidden;
 }
