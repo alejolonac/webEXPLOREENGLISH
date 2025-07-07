@@ -331,6 +331,32 @@ a {
         width: 20px;
         height: 20px;
     }
+    
+    /* Ajustes para el h1 en móviles */
+    .fondo {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+    
+    .explore {
+        margin-right: 0;
+        gap: 0.5rem;
+    }
+    
+    .english {
+        margin-left: 0;
+        gap: 0.5rem;
+    }
+    
+    .burbuja__roja {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .burbuja__blanca {
+        width: 45px;
+        height: 45px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -886,4 +912,111 @@ textarea {
     margin-bottom: 3.5rem;
 }
 
+/* Ajuste de scroll offset para anchor links */
+html {
+    scroll-padding-top: 100px; /* Ajusta este valor según la altura de tu header */
+}
 
+/* Alternativa para navegadores que no soportan scroll-padding-top */
+#formulario {
+    scroll-margin-top: 100px;
+}
+
+.nav__hamburguer {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+    margin-right: 20px;
+}
+
+.nav__hamburguer-line {
+    width: 25px;
+    height: 3px;
+    background-color: #eee;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.nav__hamburguer.active .nav__hamburguer-line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.nav__hamburguer.active .nav__hamburguer-line:nth-child(2) {
+    opacity: 0;
+}
+
+.nav__hamburguer.active .nav__hamburguer-line:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media (max-width: 768px) {
+    .nav__hamburguer {
+        display: flex;
+    }
+    
+    .nav__list {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: #111111;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 2rem;
+        transition: right 0.3s ease;
+        margin-top: 0;
+    }
+    
+    .nav__list.active {
+        right: 0;
+    }
+    
+    .nav__item {
+        margin: 1rem 0;
+    }
+    
+    .nav__link,
+    .nav__link-activo {
+        font-size: 1.5rem;
+        margin-right: 0;
+        padding: 1rem 2rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav__logo-img {
+        height: 3rem;
+        margin-left: 10px;
+    }
+    
+    .nav__hamburguer-line {
+        background-color: #eee;
+    }
+    
+    .nav-scrolled .nav__hamburguer-line {
+        background-color: #2e2e2e;
+    }
+    
+
+}
+@media (max-width: 480px) {
+    .nav__logo-img {
+        height: 2.5rem;
+    }
+    
+    .nav__link,
+    .nav__link-activo {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+
+}

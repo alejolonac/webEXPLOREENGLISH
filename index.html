@@ -14,12 +14,16 @@
             <a href="index.html" class="nav__logo-img">
                 <img src="imagenes/logo.png" alt="logo" class="nav__logo-img" title="inicio">
             </a>
+            <button class="nav__hamburguer" id="nav-hamburguer">
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+            </button>
             <ul class="nav__list"> 
                 <li class="nav__item"><a href="index.html" class="nav__link-activo">Home</a></li>
                 <li class="nav__item"><a href="./HTML/sobrenosotros.html" class="nav__link">About us</a></li>
                 <li class="nav__item"><a href="./HTML/cursos.html" class="nav__link">Courses</a></li>
-                <li class="nav__item"><a href="certificadointernacional.html" class="nav__link">International certification</a></li>
-                <li class="nav__item"><a href="contacto.html" class="nav__link">contact</a></li>
+                <li class="nav__item"><a href="#formulario" class="nav__link">contact</a></li>
             </ul>
         </nav>
     </header>
@@ -182,8 +186,8 @@
             </div>
         </div>
 
-        <div class="formulario">
-            <form class="formulario__form" action="mailto:alejolonac4@gmail.com" method="POST" enctype="text/plain">
+        <div class="formulario" id="formulario">
+            <form class="formulario__form" action="https://formsubmit.co/alejolonac4@email.com" method="POST">
                 <input type="text" placeholder="Nombre y Apellido" class="formulario__input" name="nombre" required>
                 <input type="email" placeholder="Email" class="formulario__input" name="email" required>
                 <input type="tel" placeholder="Telefono" class="formulario__input" name="telefono" required>

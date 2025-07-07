@@ -250,3 +250,33 @@ window.addEventListener('scroll', () => {
         nav.classList.remove('nav-scrolled');
     }
 });
+
+// Menú hamburguesa
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('nav-hamburguer');
+    const navList = document.querySelector('.nav__list');
+    
+    if (hamburger && navList) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navList.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        const navLinks = document.querySelectorAll('.nav__link, .nav__link-activo');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navList.classList.remove('active');
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !navList.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navList.classList.remove('active');
+            }
+        });
+    }
+});
