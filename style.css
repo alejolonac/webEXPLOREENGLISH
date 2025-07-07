@@ -711,26 +711,33 @@ a {
 
 .bloque {
     width: 100%;
-    height: 40vw;
+    min-height: 30vh;
     background-color: #cc0000;
-    margin-bottom: 10rem;
+    margin-bottom: clamp(5rem, 10vw, 10rem);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .bloque__contenido {
-    max-width: 1200px;
+    max-width: min(80%, 1200px);
     width: 100%;
-    height: 80%;
+    min-height: 40vh;
+    margin: 0 auto;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.5);
+    border-radius: clamp(6px, 1vw, 10px);
+    box-shadow: 0 0 clamp(20px, 4vw, 40px) 5px rgba(0, 0, 0, 0.5);
     border: 2px solid #111111;
+    padding: clamp(1rem, 2vw, 2rem);
+    box-sizing: border-box;
 }
 
 .bloque__convenios {
-    width: 85%;
+    width: min(90%, 1000px);
+    height: clamp(150px, 30vh, 300px);
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -738,10 +745,9 @@ a {
 }
 
 .bloque__titulo {
-    margin-top: 0;
+    margin: clamp(1rem, 2vw, 2rem) auto;
     text-align: center;
-    margin-top: 2rem;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     font-weight: 100;
     text-transform: uppercase;
     text-decoration: underline #ff0000 1.5px solid;
@@ -755,8 +761,8 @@ a {
     font-size: 1.25rem;
     border-radius: 30px;
     font-weight: 600;
-    margin: 0 auto;
+    margin: clamp(0.5rem, 3vw, 2.5rem) auto;
     display: block;
     width: fit-content;
-    margin-top: 2.7rem;
+    max-width: 90%;
 }
