@@ -878,6 +878,14 @@ html {
         font-size: 3.5rem;
     }
 
+    .explore {
+        margin-right: 100px;
+    }
+
+    .english {
+        margin-left: 100px;
+    }
+
     .carrusel-instalaciones__slide {
         flex: 0 0 25%;
     }
@@ -890,9 +898,21 @@ html {
         display: none;
     }
 
+    .online__titulo {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .clases__online {
+        margin: 0 2rem 4rem 2rem;
+    }
+
     .online__info {
+        justify-content: center;
         max-width: 100%;
+        font-size: 1.1rem;
         margin-left: 0;
+        margin-top: 6rem;
     }
 
     .nosotros {
@@ -907,6 +927,21 @@ html {
     .nosotros__carrusel {
         margin-top: 0;
         max-width: 100%;
+    }
+
+    .instalaciones {
+        justify-content: center;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .instalaciones__info {
+        max-width: 100%;
+        margin-left: 0;
+    }
+
+    .instalaciones__imagen {
+        display: none;
     }
 }
 
@@ -1020,6 +1055,11 @@ html {
     }
     .carrusel-instalaciones__track-inner {
         gap: 0.5rem;
+    }
+
+    .footer__sections {
+        display: flex;
+        flex-direction: column;
     }
 }
 
