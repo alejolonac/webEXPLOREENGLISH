@@ -5,26 +5,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextButton = document.querySelector('.carrusel-next');
     
     let isButtonEnabled = true;
-    const buttonCooldown = 500; // medio segundo de espera entre clicks
+    const buttonCooldown = 500;
     
-    // Duplicar los slides necesarios para el carrusel infinito
-    const slidesToClone = 3;
-    const allSlides = Array.from(slides);
+    // Solo clonar slides si no estamos en móvil
+    const isMobile = window.innerWidth <= 768;
+    let currentIndex = 0;
+    let totalSlides;
     
-    // Agregar slides al inicio
-    for (let i = allSlides.length - 1; i >= allSlides.length - slidesToClone; i--) {
-        const clone = allSlides[i].cloneNode(true);
-        trackInner.insertBefore(clone, trackInner.firstChild);
+    if (!isMobile) {
+        // Duplicar los slides necesarios para el carrusel infinito
+        const slidesToClone = 3;
+        const allSlides = Array.from(slides);
+        
+        // Agregar slides al inicio
+        for (let i = allSlides.length - 1; i >= allSlides.length - slidesToClone; i--) {
+            const clone = allSlides[i].cloneNode(true);
+            trackInner.insertBefore(clone, trackInner.firstChild);
+        }
+        
+        // Agregar slides al final
+        for (let i = 0; i < slidesToClone; i++) {
+            const clone = allSlides[i].cloneNode(true);
+            trackInner.appendChild(clone);
+        }
+        
+        currentIndex = slidesToClone;
+        totalSlides = allSlides.length;
+    } else {
+        totalSlides = slides.length;
     }
-    
-    // Agregar slides al final
-    for (let i = 0; i < slidesToClone; i++) {
-        const clone = allSlides[i].cloneNode(true);
-        trackInner.appendChild(clone);
-    }
-    
-    let currentIndex = slidesToClone; // Comenzamos en el primer slide real
-    const totalSlides = allSlides.length;
     
     function getSlideWidth() {
         const slide = slides[0];
@@ -35,16 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updateActiveSlide() {
-        // Remover la clase active de todos los slides
         trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
             slide.classList.remove('active');
         });
         
-        // Añadir la clase active al slide del medio (currentIndex + 1)
         const allSlides = trackInner.querySelectorAll('.nosotros__carrusel-slide');
-        const middleSlide = allSlides[currentIndex + 1];
-        if (middleSlide) {
-            middleSlide.classList.add('active');
+        if (isMobile) {
+            // En móvil, activar los tres slides visibles
+            for(let i = currentIndex; i < currentIndex + 3 && i < allSlides.length; i++) {
+                if (allSlides[i]) allSlides[i].classList.add('active');
+            }
+        } else {
+            // En desktop, activar el slide del medio
+            const middleSlide = allSlides[currentIndex + 1];
+            if (middleSlide) {
+                middleSlide.classList.add('active');
+            }
         }
     }
     
@@ -61,63 +76,64 @@ document.addEventListener('DOMContentLoaded', () => {
         trackInner.style.transform = `translateX(${offset}px)`;
         updateActiveSlide();
         
-        // Forzar reflow
         trackInner.offsetHeight;
     }
     
     function resetPosition() {
-        if (currentIndex >= totalSlides + slidesToClone) {
-            // Añadir clase no-transition a todos los slides
-            trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
-                slide.classList.add('no-transition');
-            });
-            
-            currentIndex = slidesToClone;
-            updateCarousel(true);
-            
-            // Forzar reflow
-            trackInner.offsetHeight;
-            
-            // Remover clase no-transition después de un momento
-            setTimeout(() => {
+        if (!isMobile) {
+            if (currentIndex >= totalSlides + 3) {
                 trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
-                    slide.classList.remove('no-transition');
+                    slide.classList.add('no-transition');
                 });
-            }, 50);
-        } else if (currentIndex < slidesToClone) {
-            // Añadir clase no-transition a todos los slides
-            trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
-                slide.classList.add('no-transition');
-            });
-            
-            currentIndex = totalSlides + (slidesToClone - 1);
-            updateCarousel(true);
-            
-            // Forzar reflow
-            trackInner.offsetHeight;
-            
-            // Remover clase no-transition después de un momento
-            setTimeout(() => {
+                
+                currentIndex = 3;
+                updateCarousel(true);
+                
+                trackInner.offsetHeight;
+                
+                setTimeout(() => {
+                    trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                        slide.classList.remove('no-transition');
+                    });
+                }, 50);
+            } else if (currentIndex < 3) {
                 trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
-                    slide.classList.remove('no-transition');
+                    slide.classList.add('no-transition');
                 });
-            }, 50);
+                
+                currentIndex = totalSlides + 2;
+                updateCarousel(true);
+                
+                trackInner.offsetHeight;
+                
+                setTimeout(() => {
+                    trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                        slide.classList.remove('no-transition');
+                    });
+                }, 50);
+            }
         }
     }
     
-    // Inicializar posición
     updateCarousel(true);
     
-    // Manejar transitionend solo una vez por transición
-    trackInner.addEventListener('transitionend', () => {
-        resetPosition();
-    });
+    if (!isMobile) {
+        trackInner.addEventListener('transitionend', () => {
+            resetPosition();
+        });
+    }
     
-    // Actualizar carrusel cuando cambie el tamaño de la ventana
-    window.addEventListener('resize', () => updateCarousel(true));
+    window.addEventListener('resize', () => {
+        const newIsMobile = window.innerWidth <= 768;
+        if (newIsMobile !== isMobile) {
+            location.reload(); // Recargar la página si cambia entre móvil y desktop
+        }
+        updateCarousel(true);
+    });
     
     prevButton.addEventListener('click', () => {
         if (!isButtonEnabled) return;
+        if (isMobile && currentIndex <= 0) return;
         
         isButtonEnabled = false;
         currentIndex--;
@@ -130,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     nextButton.addEventListener('click', () => {
         if (!isButtonEnabled) return;
+        if (isMobile && currentIndex >= totalSlides - 2) return; // Cambiado de 3 a 2 para permitir un slide más
         
         isButtonEnabled = false;
         currentIndex++;
@@ -139,8 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isButtonEnabled = true;
         }, buttonCooldown);
     });
-
-
 });
 
 // Carrusel de Instalaciones
@@ -321,20 +336,24 @@ if (track) {
         
         const diff = touchEndX - touchStartX;
         const slideWidth = track.children[0].offsetWidth;
+        const maxIndex = totalSlides - 2; // Cambiado de 3 a 2 para permitir un slide más
         
         // Determinar si el swipe fue lo suficientemente largo para cambiar de slide
         if (Math.abs(diff) > slideWidth / 3) {
             if (diff > 0 && currentIndex > 0) {
-                // Swipe derecha
+                // Swipe derecha (hacia atrás)
                 currentIndex--;
-            } else if (diff < 0 && currentIndex < track.children.length - 3) {
-                // Swipe izquierda
+            } else if (diff < 0 && currentIndex < maxIndex) {
+                // Swipe izquierda (hacia adelante)
                 currentIndex++;
             }
         }
         
+        // Asegurarse de que el índice esté dentro de los límites
+        currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+        
         // Mover al slide correspondiente
-        currentTranslate = -(currentIndex * (slideWidth + 16)); // 16px es el gap entre slides
+        currentTranslate = -(currentIndex * (slideWidth + 16));
         track.style.transition = 'transform 0.3s ease-out';
         track.style.transform = `translateX(${currentTranslate}px)`;
         
