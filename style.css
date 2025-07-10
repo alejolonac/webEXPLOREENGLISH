@@ -1011,8 +1011,8 @@ html {
 /* Tablet */
 @media (max-width: 768px) {
 
-    h3, h4 {
-        text-decoration: underline #ff0000 3px solid;
+    .online__titulo, .formulario__contacto {
+        text-decoration: underline #ff0000 2px solid;
         text-underline-offset: 4px;
     }
 
