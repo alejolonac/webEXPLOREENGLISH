@@ -1065,6 +1065,10 @@ html {
         background-color: #eee;
     }
 
+    .header__background {
+        height: 15rem;
+    }
+
     .fondo {
         font-size: 2.5rem;
     }
@@ -1255,6 +1259,7 @@ html {
 
     .nosotros {
         text-align: center;
+        margin-top: 9rem;
         margin-bottom: 2rem;
     }
 
