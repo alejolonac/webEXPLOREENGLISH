@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const diff = currentX - touchStartX;
         const newTranslate = startTranslate + diff;
         
-        // Limitar el scroll
-        const maxScroll = 0;
-        const minScroll = -(trackInner.scrollWidth - trackInner.clientWidth);
+        // Limitar el scroll con un poco más de margen
+        const maxScroll = 100; // Permitir un poco de scroll hacia la derecha
+        const minScroll = -(trackInner.scrollWidth - trackInner.clientWidth + 100); // Permitir un poco más de scroll hacia la izquierda
         
         if (newTranslate <= maxScroll && newTranslate >= minScroll) {
             trackInner.style.transform = `translateX(${newTranslate}px)`;
