@@ -1048,7 +1048,7 @@ html {
     }
     
     .nav__logo-img {
-        height: 4rem;
+        height: 4.5rem;
         margin-left: 5px;
         margin-top: 3px;
     }
@@ -1066,7 +1066,7 @@ html {
     }
 
     .header__background {
-        height: 16rem;
+        height: 18rem;
     }
 
     .fondo {
@@ -1255,12 +1255,12 @@ html {
 
     .fondo {
         font-size: 2rem;
-        height: 60%;
+        height: 58%;
     }
 
     .nosotros {
         text-align: center;
-        margin-top: 10rem;
+        margin-top: 12rem;
         margin-bottom: 2rem;
     }
 
