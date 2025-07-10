@@ -1048,7 +1048,7 @@ html {
     }
     
     .nav__logo-img {
-        height: 3.5rem;
+        height: 3.7rem;
         margin-left: 5px;
         margin-top: 3px;
     }
@@ -1255,6 +1255,7 @@ html {
 
     .fondo {
         font-size: 2rem;
+        height: 60%;
     }
 
     .nosotros {
