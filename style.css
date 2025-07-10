@@ -1031,20 +1031,33 @@ html {
     .nav__link,
     .nav__link-activo {
         font-size: 1.5rem;
-        padding: 1rem 2rem;
         display: block;
         margin: 0;
-        padding: 0;
+        padding: 1rem 0;
         width: 100%;
     }
 
-    .nav-scrolled .nav__link{
+    .nav__link::after {
+        display: none;
+    }
+
+    .nav__link-activo {
+        text-decoration: underline;
+        text-decoration-color: #eee;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+    }
+
+    .nav-scrolled .nav__link {
         color: #eee; 
     }
 
     .nav-scrolled .nav__link-activo {
-        color: #eee; 
-        text-decoration: underline #eee 1px solid;
+        color: #eee;
+        text-decoration: underline;
+        text-decoration-color: #eee;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
     }
     
     .nav__logo-img {
