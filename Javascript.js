@@ -13,17 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalSlides;
     
     if (!isMobile) {
-        // Duplicar los slides necesarios para el carrusel infinito
+        // Código del carrusel desktop...
         const slidesToClone = 3;
         const allSlides = Array.from(slides);
         
-        // Agregar slides al inicio
         for (let i = allSlides.length - 1; i >= allSlides.length - slidesToClone; i--) {
             const clone = allSlides[i].cloneNode(true);
             trackInner.insertBefore(clone, trackInner.firstChild);
         }
         
-        // Agregar slides al final
         for (let i = 0; i < slidesToClone; i++) {
             const clone = allSlides[i].cloneNode(true);
             trackInner.appendChild(clone);
@@ -50,8 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         touchStartX = event.touches[0].clientX;
         startTranslate = getCurrentTranslate();
         isDragging = true;
-        
-        // Desactivar la transición durante el arrastre
         trackInner.style.transition = 'none';
     }
 
@@ -76,12 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
     }
 
-    if (isMobile) {
-        trackInner.addEventListener('touchstart', touchStart, { passive: true });
-        trackInner.addEventListener('touchmove', touchMove, { passive: false });
-        trackInner.addEventListener('touchend', touchEnd);
-    }
-    
+    // Funciones del carrusel
     function getSlideWidth() {
         const slide = slides[0];
         const style = window.getComputedStyle(slide);
@@ -105,21 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updateCarousel(instant = false) {
-        if (!isMobile) {
-            const slideWidth = getSlideWidth();
-            const offset = -currentIndex * slideWidth;
-            
-            if (instant) {
-                trackInner.style.transition = 'none';
-            } else {
-                trackInner.style.transition = 'transform 0.5s ease';
-            }
-            
-            trackInner.style.transform = `translateX(${offset}px)`;
-            updateActiveSlide();
-            
-            trackInner.offsetHeight;
+        const slideWidth = getSlideWidth();
+        const offset = -currentIndex * slideWidth;
+        
+        if (instant) {
+            trackInner.style.transition = 'none';
+        } else {
+            trackInner.style.transition = 'transform 0.5s ease';
         }
+        
+        trackInner.style.transform = `translateX(${offset}px)`;
+        if (!isMobile) {
+            updateActiveSlide();
+        }
+        
+        trackInner.offsetHeight;
     }
     
     function resetPosition() {
@@ -158,12 +149,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Inicialización y eventos
     if (!isMobile) {
         updateCarousel(true);
-        
-        trackInner.addEventListener('transitionend', () => {
-            resetPosition();
-        });
+        trackInner.addEventListener('transitionend', resetPosition);
+    }
+    
+    if (isMobile) {
+        // Eventos touch para móvil
+        trackInner.addEventListener('touchstart', touchStart, { passive: true });
+        trackInner.addEventListener('touchmove', touchMove, { passive: false });
+        trackInner.addEventListener('touchend', touchEnd);
     }
     
     window.addEventListener('resize', () => {
@@ -176,31 +172,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    if (!isMobile) {
-        prevButton.addEventListener('click', () => {
-            if (!isButtonEnabled) return;
-            
-            isButtonEnabled = false;
+    // Botones de navegación
+    prevButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
+        if (isMobile) {
+            const currentTranslate = getCurrentTranslate();
+            const slideWidth = getSlideWidth();
+            trackInner.style.transition = 'transform 0.5s ease';
+            trackInner.style.transform = `translateX(${currentTranslate + slideWidth}px)`;
+        } else {
             currentIndex--;
             updateCarousel();
-            
-            setTimeout(() => {
-                isButtonEnabled = true;
-            }, buttonCooldown);
-        });
+        }
         
-        nextButton.addEventListener('click', () => {
-            if (!isButtonEnabled) return;
-            
-            isButtonEnabled = false;
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
+    });
+    
+    nextButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        
+        isButtonEnabled = false;
+        if (isMobile) {
+            const currentTranslate = getCurrentTranslate();
+            const slideWidth = getSlideWidth();
+            trackInner.style.transition = 'transform 0.5s ease';
+            trackInner.style.transform = `translateX(${currentTranslate - slideWidth}px)`;
+        } else {
             currentIndex++;
             updateCarousel();
-            
-            setTimeout(() => {
-                isButtonEnabled = true;
-            }, buttonCooldown);
-        });
-    }
+        }
+        
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, buttonCooldown);
+    });
 });
 
 // Carrusel de Instalaciones
