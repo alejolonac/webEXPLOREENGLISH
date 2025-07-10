@@ -1011,10 +1011,12 @@ html {
 /* Tablet */
 @media (max-width: 768px) {
 
-    .online__titulo, .formulario__contacto {
+    .formulario .formulario__titulo,
+    .main .online__titulo {
         text-decoration: underline #ff0000 2px solid;
         text-underline-offset: 4px;
     }
+
 
     .nav__hamburguer {
         display: flex;
