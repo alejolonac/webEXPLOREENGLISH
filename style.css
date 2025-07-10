@@ -1257,11 +1257,14 @@ html {
 
     .nosotros__carrusel-slide {
         flex: 0 0 calc((100% - 1rem) / 3);
+        flex: 0 0 40%; /* exactamente un tercio */
+        width: 40%; /* asegura el mismo ancho */
+        min-width: 40%; /* previene que se encojan */
+        max-width: 40%; /* previene que se expandan */
     }
 
     .nosotros__track-inner {
         gap: 0.5rem;
-        transform: translateX(calc(-33.33% - 0.5rem));
     }
 
     .nosotros__carrusel-slide.active {
