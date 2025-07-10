@@ -1256,7 +1256,7 @@ html {
     }
 
     .nosotros__carrusel-slide {
-        flex: 0 0 calc((100% - 1rem) / 2);
+        flex: 0 0 calc((100% - 1rem) / 3);
     }
 
     .nosotros__carrusel-slide.active {
