@@ -1132,8 +1132,6 @@ html {
 
     h3.online__titulo, h4.formulario__titulo{
         font-size: 1.5rem;
-        text-decoration: underline #ff0000 2px solid !important;
-        text-underline-offset: 4px !important;
     } 
 
     .clases__online {
@@ -1349,5 +1347,11 @@ html {
 
     .nav {
         height: 80px;
+    }
+
+    h3.online__titulo,
+    h4.formulario__titulo {
+        text-decoration: underline #ff0000 2px solid;
+        text-underline-offset: 4px;
     }
 }
