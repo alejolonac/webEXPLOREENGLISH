@@ -1351,7 +1351,10 @@ html {
 
     h3.online__titulo,
     h4.formulario__titulo {
-        text-decoration: underline #ff0000 2px solid;
+        text-decoration: underline;
+        text-decoration-color: #ff0000;
+        text-decoration-thickness: 2px;
+        text-decoration-style: solid;
         text-underline-offset: 4px;
     }
 }
