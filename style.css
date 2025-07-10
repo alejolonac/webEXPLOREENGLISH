@@ -464,7 +464,7 @@ a {
     background-color: #ff0000;
     margin-left: auto;
     margin-bottom: 1rem;
-    text-align: center;
+    text-align: center; 
     color: #eee;
     border-radius: 4px;
 }
@@ -537,7 +537,7 @@ textarea {
 }
 
 .footer {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(imagenes/footer.png);
+    background-color: #111111;
     background-size: cover;
     height: 20rem;
     position: relative;
@@ -594,6 +594,7 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
+    min-height: 30rem;
     background-color: #111111;
     background-size: cover;
     background-attachment: fixed;
@@ -605,9 +606,15 @@ textarea {
     margin-bottom: 0;
     font-size: 3rem;
     max-width: 50rem;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .fondo__subtitulo-text {
@@ -615,6 +622,10 @@ textarea {
     max-width: 45rem;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .fondo__subtitulo {
@@ -624,13 +635,16 @@ textarea {
 .circulorojo {
     position: relative;
     z-index: 2;
+    color: #eee;
+    height: 80%;
+    width: 100%;
 }
 
 .circulorojo::before {
     content: '';
     position: absolute;
     width: 60rem;
-    height: 60rem;
+    height: 100%;
     background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
     top: 50%;
     left: 50%;
@@ -642,25 +656,28 @@ textarea {
 .fondo__boton {
     background-color: #ff0000;
     color: #eee; 
-    position: relative;
-    top: 10rem;
+    position: absolute;
     padding: 16px 32px;
     font-size: 1.25rem;
     border-radius: 30px;
     font-weight: 600;
     cursor: pointer; 
     z-index: 3;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .descubrir-mas {
     position: relative;
     font-size: 1.1rem;
-    top: 15rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     z-index: 3;
+    color: #eee;
+    top: 3rem;
 }
 
 .seccion__nosotros {
@@ -749,12 +766,13 @@ textarea {
     justify-content: center;
     align-items: center;
     gap: 10rem;
-    margin-top: 10rem;
-    margin-bottom: 8rem;
+    margin: 10rem 1rem 8rem 1rem;
 }
 
 .modalidad__imagen {
     border-radius: 10px;
+    width: 100%;
+
 }
 
 .modalidad__titulo {
@@ -933,6 +951,7 @@ html {
         justify-content: center;
         margin-left: 2rem;
         margin-right: 2rem;
+        margin-top: 0;
     }
 
     .instalaciones__info {
@@ -941,6 +960,10 @@ html {
     }
 
     .instalaciones__imagen {
+        display: none;
+    }
+
+    .online__info-img {
         display: none;
     }
 }
@@ -981,20 +1004,20 @@ html {
 @media (max-width: 768px) {
     .nav__hamburguer {
         display: flex;
+        margin-top: 13px;
     }
     
     .nav__list {
         position: fixed;
         right: -100%;
-        width: 80%;
-        height: calc(100vh - 80px);
+        width: 60%;
+        height: 100%;
         background-color: #111111;
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 2rem;
         transition: right 0.3s ease;
         margin-top: 0;
+        text-align: center;
+        padding: 2.5rem 0;
     }
     
     .nav__list.active {
@@ -1008,16 +1031,26 @@ html {
     .nav__link,
     .nav__link-activo {
         font-size: 1.5rem;
-        margin-right: 0;
         padding: 1rem 2rem;
         display: block;
+        margin: 0;
+        padding: 0;
         width: 100%;
-        text-align: center;
+    }
+
+    .nav-scrolled .nav__link{
+        color: #eee; 
+    }
+
+    .nav-scrolled .nav__link-activo {
+        color: #eee; 
+        text-decoration: underline #eee 1px solid;
     }
     
     .nav__logo-img {
-        height: 3rem;
-        margin-left: 10px;
+        height: 3.5rem;
+        margin-left: 5px;
+        margin-top: 3px;
     }
     
     .nav__hamburguer-line {
@@ -1026,6 +1059,10 @@ html {
     
     .nav-scrolled .nav__hamburguer-line {
         background-color: #2e2e2e;
+    }
+
+    .nav__hamburguer.active .nav__hamburguer-line {
+        background-color: #eee;
     }
 
     .fondo {
@@ -1061,6 +1098,129 @@ html {
         display: flex;
         flex-direction: column;
     }
+
+    .online__info-img {
+        display: flex;
+    }
+
+    .online__titulo {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    } 
+
+    .clases__online {
+        font-size: 1.2rem;
+        height: 100%;
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .online__info {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .online__subtitle {
+        margin-top: 0;
+    }
+
+    .online__vermas {
+        margin: 1rem auto;
+    }
+
+    .footer {
+        height: 30rem;
+    }
+
+    .fondo__titulo-nosotros {
+        font-size: 1.5rem;
+        padding: 0;
+        width: 81%;
+    }
+
+    .fondo__subtitulo-text {
+        font-size: 1rem;
+        padding: 0;
+        width: 70%;
+        margin-top: 1.8rem;
+    }
+
+    .fondo__boton {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+
+    .flecha-cta {
+        display: none;
+    }
+    
+    .circulorojo::before {
+        width: 25rem;
+    }
+
+    .descubrir-mas {
+        display: none;
+    }
+
+    .seccion__nosotros {
+        margin: 27rem 1rem 0 1rem;
+        font-size: 1rem;
+    }
+
+    .bloque {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .bloque__convenios {
+        height: 130px;
+        width: 100%;
+        margin: 1rem 0 1rem 0;
+    }
+
+    .bloque__contenido {
+        max-width: 100%;
+        min-height: 30vh;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .bloque__boton {
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 25px;
+    }
+
+    .modalidades {
+        flex-direction: column;
+        margin-top: 25rem;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .footer__icons {
+        position: static;
+        order: 2;
+        margin: 2rem 0 6rem 0;
+    }
+
+    .footer__section {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .footer__sections {
+        position: static;
+        transform: none;
+        order: 1;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1087,5 +1247,31 @@ html {
     .carrusel-next-instalaciones svg {
         width: 14px;
         height: 14px;
+    }
+
+    .fondo {
+        font-size: 2rem;
+    }
+
+    .nosotros {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .nosotros__text {
+        margin: 0;
+    }
+
+    .formulario {
+        padding: 1rem;
+        margin: 0 1rem 1rem 1rem;
+    }
+
+    .formulario__contacto {
+        display: none;
+    }
+
+    .nav {
+        height: 70px;
     }
 }

@@ -10,11 +10,37 @@
 </head>
 <body>
     <header class="header">
-        <div class="header__background-sobrenosotros"></div>
+        <div class="header__background-sobrenosotros">
+            <div class="circulorojo">
+                <h1 class="fondo__titulo-nosotros">
+                    Enseñamos inglés de manera clara, práctica y adaptada a cada nivel
+                </h1>
+                <div class="fondo__subtitulo">
+                    <p class="fondo__subtitulo-text">Cursos para niños, adolescentes y adultos, con clases dinámicas y seguimiento personalizado.</p>
+                </div> 
+                <a href="../index.html#formulario" class="fondo__boton">
+                    contáctanos
+                    <svg class="flecha-cta" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 12H21M21 12L14 5M21 12L14 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>              
+            </div>
+            <div class="descubrir-mas">
+                <span class="descubrir-mas__texto">Descubrir más</span>
+                <svg class="descubrir-mas__flecha" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
         <nav class="nav"> 
             <a href="../index.html" class="nav__logo-img">
                 <img src="../imagenes/logo.png" alt="logo" class="nav__logo-img" title="inicio">
             </a>
+            <button class="nav__hamburguer" id="nav-hamburguer">
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+            </button>
             <ul class="nav__list"> 
                 <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
                 <li class="nav__item"><a href="sobrenosotros.html" class="nav__link-activo">About us</a></li>
@@ -25,29 +51,6 @@
     </header>
 
     <main class="main">
-        <div class="fondo">
-            <div class="circulorojo">
-                <h1 class="fondo__titulo-nosotros">
-                    Enseñamos inglés de manera clara, práctica y adaptada a cada nivel
-                </h1>
-                <div class="fondo__subtitulo">
-                    <p class="fondo__subtitulo-text">Cursos para niños, adolescentes y adultos, con clases dinámicas y seguimiento personalizado.</p>
-                </div>               
-            </div>
-            <a href="../index.html#formulario" class="fondo__boton">
-                contáctanos
-                <svg class="flecha-cta" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M3 12H21M21 12L14 5M21 12L14 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
-            <div class="descubrir-mas">
-                <span class="descubrir-mas__texto">Descubrir más</span>
-                <svg class="descubrir-mas__flecha" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M7 10l5 5 5-5" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </div>
-        </div>
-
         <div class="seccion__nosotros">
             <div class="seccion__info">
                 <img src="../imagenes/edificio.png" class="seccion__icon">

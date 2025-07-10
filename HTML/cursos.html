@@ -10,22 +10,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="header__background-sobrenosotros"></div>
-        <nav class="nav"> 
-            <a href="../index.html" class="nav__logo-img">
-                <img src="../imagenes/logo.png" alt="logo" class="nav__logo-img" title="inicio">
-            </a>
-            <ul class="nav__list"> 
-                <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="sobrenosotros.html" class="nav__link">About us</a></li>
-                <li class="nav__item"><a href="cursos.html" class="nav__link-activo">Courses</a></li>
-                <li class="nav__item"><a href="../index.html#formulario" class="nav__link">contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="main">
-        <div class="fondo">
+        <div class="header__background-sobrenosotros">
             <div class="circulorojo">
                 <h1 class="fondo__titulo-nosotros">
                     Nuestros cursos
@@ -41,7 +26,25 @@
                 </svg>
             </div>
         </div>
+        <nav class="nav"> 
+            <a href="../index.html" class="nav__logo-img">
+                <img src="../imagenes/logo.png" alt="logo" class="nav__logo-img" title="inicio">
+            </a>
+            <button class="nav__hamburguer" id="nav-hamburguer">
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+                <span class="nav__hamburguer-line"></span>
+            </button>
+            <ul class="nav__list"> 
+                <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="sobrenosotros.html" class="nav__link">About us</a></li>
+                <li class="nav__item"><a href="cursos.html" class="nav__link-activo">Courses</a></li>
+                <li class="nav__item"><a href="../index.html#formulario" class="nav__link">contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main class="main">
         <div class="modalidades">
             <div class="modalidad__online">
                 <h2 class="modalidad__titulo">Modalidad online</h2>
