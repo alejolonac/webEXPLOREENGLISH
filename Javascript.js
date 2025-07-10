@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTranslate = startTranslate + diff;
         
         // Limitar el scroll con un poco más de margen
-        const maxScroll = 200; // Permitir un poco de scroll hacia la derecha
-        const minScroll = -(trackInner.scrollWidth - trackInner.clientWidth + 200); // Permitir un poco más de scroll hacia la izquierda
+        const maxScroll = 100; // Permitir un poco de scroll hacia la derecha
+        const minScroll = -(trackInner.scrollWidth - trackInner.clientWidth + 100); // Permitir un poco más de scroll hacia la izquierda
         
         if (newTranslate <= maxScroll && newTranslate >= minScroll) {
             trackInner.style.transform = `translateX(${newTranslate}px)`;
@@ -160,6 +160,24 @@ document.addEventListener('DOMContentLoaded', () => {
         trackInner.addEventListener('touchstart', touchStart, { passive: true });
         trackInner.addEventListener('touchmove', touchMove, { passive: false });
         trackInner.addEventListener('touchend', touchEnd);
+        
+        // Agregar eventos touch a todos los slides y sus elementos hijos
+        trackInner.querySelectorAll('*').forEach(element => {
+            element.addEventListener('touchstart', (e) => {
+                e.stopPropagation();
+                touchStart(e);
+            }, { passive: true });
+            
+            element.addEventListener('touchmove', (e) => {
+                e.stopPropagation();
+                touchMove(e);
+            }, { passive: false });
+            
+            element.addEventListener('touchend', (e) => {
+                e.stopPropagation();
+                touchEnd(e);
+            });
+        });
     }
     
     window.addEventListener('resize', () => {
