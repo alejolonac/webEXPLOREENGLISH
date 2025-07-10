@@ -35,6 +35,53 @@ document.addEventListener('DOMContentLoaded', () => {
         totalSlides = slides.length;
     }
     
+    // Variables para el touch
+    let touchStartX = 0;
+    let startTranslate = 0;
+    let isDragging = false;
+
+    function getCurrentTranslate() {
+        const style = window.getComputedStyle(trackInner);
+        const matrix = new WebKitCSSMatrix(style.transform);
+        return matrix.m41;
+    }
+
+    function touchStart(event) {
+        touchStartX = event.touches[0].clientX;
+        startTranslate = getCurrentTranslate();
+        isDragging = true;
+        
+        // Desactivar la transición durante el arrastre
+        trackInner.style.transition = 'none';
+    }
+
+    function touchMove(event) {
+        if (!isDragging) return;
+        
+        event.preventDefault();
+        const currentX = event.touches[0].clientX;
+        const diff = currentX - touchStartX;
+        const newTranslate = startTranslate + diff;
+        
+        // Limitar el scroll
+        const maxScroll = 0;
+        const minScroll = -(trackInner.scrollWidth - trackInner.clientWidth);
+        
+        if (newTranslate <= maxScroll && newTranslate >= minScroll) {
+            trackInner.style.transform = `translateX(${newTranslate}px)`;
+        }
+    }
+
+    function touchEnd() {
+        isDragging = false;
+    }
+
+    if (isMobile) {
+        trackInner.addEventListener('touchstart', touchStart, { passive: true });
+        trackInner.addEventListener('touchmove', touchMove, { passive: false });
+        trackInner.addEventListener('touchend', touchEnd);
+    }
+    
     function getSlideWidth() {
         const slide = slides[0];
         const style = window.getComputedStyle(slide);
@@ -44,18 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updateActiveSlide() {
-        trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
-            slide.classList.remove('active');
-        });
-        
-        const allSlides = trackInner.querySelectorAll('.nosotros__carrusel-slide');
-        if (isMobile) {
-            // En móvil, activar los tres slides visibles
-            for(let i = currentIndex; i < currentIndex + 3 && i < allSlides.length; i++) {
-                if (allSlides[i]) allSlides[i].classList.add('active');
-            }
-        } else {
-            // En desktop, activar el slide del medio
+        if (!isMobile) {
+            trackInner.querySelectorAll('.nosotros__carrusel-slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            const allSlides = trackInner.querySelectorAll('.nosotros__carrusel-slide');
             const middleSlide = allSlides[currentIndex + 1];
             if (middleSlide) {
                 middleSlide.classList.add('active');
@@ -64,19 +105,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updateCarousel(instant = false) {
-        const slideWidth = getSlideWidth();
-        const offset = -currentIndex * slideWidth;
-        
-        if (instant) {
-            trackInner.style.transition = 'none';
-        } else {
-            trackInner.style.transition = 'transform 0.5s ease';
+        if (!isMobile) {
+            const slideWidth = getSlideWidth();
+            const offset = -currentIndex * slideWidth;
+            
+            if (instant) {
+                trackInner.style.transition = 'none';
+            } else {
+                trackInner.style.transition = 'transform 0.5s ease';
+            }
+            
+            trackInner.style.transform = `translateX(${offset}px)`;
+            updateActiveSlide();
+            
+            trackInner.offsetHeight;
         }
-        
-        trackInner.style.transform = `translateX(${offset}px)`;
-        updateActiveSlide();
-        
-        trackInner.offsetHeight;
     }
     
     function resetPosition() {
@@ -115,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    updateCarousel(true);
-    
     if (!isMobile) {
+        updateCarousel(true);
+        
         trackInner.addEventListener('transitionend', () => {
             resetPosition();
         });
@@ -126,36 +169,38 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         const newIsMobile = window.innerWidth <= 768;
         if (newIsMobile !== isMobile) {
-            location.reload(); // Recargar la página si cambia entre móvil y desktop
+            location.reload();
         }
-        updateCarousel(true);
+        if (!isMobile) {
+            updateCarousel(true);
+        }
     });
     
-    prevButton.addEventListener('click', () => {
-        if (!isButtonEnabled) return;
-        if (isMobile && currentIndex <= 0) return;
+    if (!isMobile) {
+        prevButton.addEventListener('click', () => {
+            if (!isButtonEnabled) return;
+            
+            isButtonEnabled = false;
+            currentIndex--;
+            updateCarousel();
+            
+            setTimeout(() => {
+                isButtonEnabled = true;
+            }, buttonCooldown);
+        });
         
-        isButtonEnabled = false;
-        currentIndex--;
-        updateCarousel();
-        
-        setTimeout(() => {
-            isButtonEnabled = true;
-        }, buttonCooldown);
-    });
-    
-    nextButton.addEventListener('click', () => {
-        if (!isButtonEnabled) return;
-        if (isMobile && currentIndex >= totalSlides - 2) return; // Cambiado de 3 a 2 para permitir un slide más
-        
-        isButtonEnabled = false;
-        currentIndex++;
-        updateCarousel();
-        
-        setTimeout(() => {
-            isButtonEnabled = true;
-        }, buttonCooldown);
-    });
+        nextButton.addEventListener('click', () => {
+            if (!isButtonEnabled) return;
+            
+            isButtonEnabled = false;
+            currentIndex++;
+            updateCarousel();
+            
+            setTimeout(() => {
+                isButtonEnabled = true;
+            }, buttonCooldown);
+        });
+    }
 });
 
 // Carrusel de Instalaciones
