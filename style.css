@@ -1010,6 +1010,12 @@ html {
 
 /* Tablet */
 @media (max-width: 768px) {
+
+    h3, h4 {
+        text-decoration: underline #ff0000 2px solid;
+        text-underline-offset: 4px;
+    }
+
     .nav__hamburguer {
         display: flex;
         margin-top: 20px;
