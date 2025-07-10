@@ -1259,6 +1259,10 @@ html {
         flex: 0 0 calc((100% - 1rem) / 3);
     }
 
+    .nosotros__track-inner {
+        gap: 0.5rem;
+    }
+
     .nosotros__carrusel-slide.active {
         height: 90px;
         transform: scale(1); 
