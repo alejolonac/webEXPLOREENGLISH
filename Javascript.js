@@ -280,3 +280,81 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Carrusel táctil
+let touchStartX = 0;
+let touchEndX = 0;
+let currentTranslate = 0;
+let isDragging = false;
+let startPosition = 0;
+let currentIndex = 0;
+
+// Seleccionar el elemento del carrusel
+const track = document.querySelector('.nosotros__track-inner');
+
+if (track) {
+    // Agregar eventos touch
+    track.addEventListener('touchstart', touchStart, { passive: true });
+    track.addEventListener('touchmove', touchMove, { passive: false });
+    track.addEventListener('touchend', touchEnd);
+
+    function touchStart(event) {
+        touchStartX = event.touches[0].clientX;
+        isDragging = true;
+        startPosition = currentTranslate;
+    }
+
+    function touchMove(event) {
+        if (!isDragging) return;
+        
+        event.preventDefault(); // Prevenir scroll mientras se arrastra
+        const currentPosition = event.touches[0].clientX;
+        const diff = currentPosition - touchStartX;
+        
+        // Mover el carrusel mientras se arrastra
+        track.style.transform = `translateX(${startPosition + diff}px)`;
+    }
+
+    function touchEnd(event) {
+        isDragging = false;
+        touchEndX = event.changedTouches[0].clientX;
+        
+        const diff = touchEndX - touchStartX;
+        const slideWidth = track.children[0].offsetWidth;
+        
+        // Determinar si el swipe fue lo suficientemente largo para cambiar de slide
+        if (Math.abs(diff) > slideWidth / 3) {
+            if (diff > 0 && currentIndex > 0) {
+                // Swipe derecha
+                currentIndex--;
+            } else if (diff < 0 && currentIndex < track.children.length - 3) {
+                // Swipe izquierda
+                currentIndex++;
+            }
+        }
+        
+        // Mover al slide correspondiente
+        currentTranslate = -(currentIndex * (slideWidth + 16)); // 16px es el gap entre slides
+        track.style.transition = 'transform 0.3s ease-out';
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        
+        // Actualizar slides activos
+        updateActiveSlides();
+        
+        // Remover la transición después de que termine
+        setTimeout(() => {
+            track.style.transition = 'none';
+        }, 300);
+    }
+
+    function updateActiveSlides() {
+        // Remover clase active de todos los slides
+        const slides = track.children;
+        Array.from(slides).forEach(slide => slide.classList.remove('active'));
+        
+        // Agregar clase active al slide actual y los adyacentes
+        if (slides[currentIndex]) slides[currentIndex].classList.add('active');
+        if (slides[currentIndex + 1]) slides[currentIndex + 1].classList.add('active');
+        if (slides[currentIndex + 2]) slides[currentIndex + 2].classList.add('active');
+    }
+}
