@@ -1004,7 +1004,7 @@ html {
 @media (max-width: 768px) {
     .nav__hamburguer {
         display: flex;
-        margin-top: 13px;
+        margin-top: 20px;
     }
     
     .nav__list {
@@ -1067,6 +1067,8 @@ html {
 
     .header__background {
         height: 18rem;
+        background-position: left center; 
+        background-position: 30% center;
     }
 
     .fondo {
@@ -1278,6 +1280,6 @@ html {
     }
 
     .nav {
-        height: 70px;
+        height: 80px;
     }
 }
