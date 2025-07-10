@@ -1132,7 +1132,6 @@ html {
 
     h3.online__titulo, h4.formulario__titulo{
         font-size: 1.5rem;
-        margin-bottom: 1rem;
         text-decoration: underline #ff0000 2px solid !important;
         text-underline-offset: 4px !important;
     } 
