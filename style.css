@@ -1255,6 +1255,10 @@ html {
         height: 14px;
     }
 
+    .nosotros__carrusel-slide {
+        flex: 0 0 calc((100% - 1rem) / 2);
+    }
+
     .nosotros__carrusel-slide.active {
         height: 90px;
         transform: scale(1); 
