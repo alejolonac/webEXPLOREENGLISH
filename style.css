@@ -1261,6 +1261,7 @@ html {
 
     .nosotros__track-inner {
         gap: 0.5rem;
+        transform: translateX(calc(-33.33% - 0.5rem));
     }
 
     .nosotros__carrusel-slide.active {
